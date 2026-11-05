@@ -62,3 +62,5 @@ Os pares de imagens ficam nos botões `#dnTabs` do `index.html` (`data-a` = imag
 
 - As fotos têm cerca de 1000 px de largura. Funcionam bem no celular, mas em telas muito grandes ficam levemente suaves. Se tiver as versões originais em alta resolução, vale substituí-las.
 - O Instagram não aceita mensagem pré-preenchida por link; por isso o site copia o texto para colar.
+
+
