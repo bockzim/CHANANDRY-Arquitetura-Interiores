@@ -6,7 +6,7 @@
      Para ativar o WhatsApp, preencha o número com DDI+DDD+número, só dígitos.
      Exemplo: '5596999999999'. Enquanto estiver vazio, os botões levam ao Instagram. */
   var CONFIG = {
-    whatsapp: '',
+    whatsapp: '5596981159999',
     instagram: 'chanandry.arquitetura'
   };
   /* ==================================================================== */

@@ -11,20 +11,10 @@ assets/js/main.js       interações (configuração no topo do arquivo)
 assets/img/             fotos em WebP (versão normal e "-sm" para miniaturas)
 ```
 
-## 1. Ativar o WhatsApp (importante)
+## 1. Contatos
 
-Não tenho o número do escritório, então os botões de contato levam ao Instagram (@chanandry.arquitetura).
-Para ativar o WhatsApp, abra `assets/js/main.js` e preencha no topo:
-
-```js
-var CONFIG = {
-  whatsapp: '5596999999999',   // DDI 55 + DDD + número, só dígitos
-  instagram: 'chanandry.arquitetura'
-};
-```
-
-Com o número preenchido, aparece o cartão de WhatsApp na seção Contato e o formulário passa a abrir o WhatsApp com a mensagem pronta.
-Sem número, o formulário copia a mensagem e abre a conversa do Instagram.
+WhatsApp (+55 96 98115-9999), e-mail e Instagram já estão ativos. Para trocar o número, edite `CONFIG.whatsapp` no topo de `assets/js/main.js` (DDI 55 + DDD + número, só dígitos) e o número exibido na seção Contato do `index.html`.
+Horário de atendimento, CAU, CNPJ, formação e prêmios estão no `index.html` (seções Sobre, Contato e rodapé) e nos dados do Google (`application/ld+json`).
 
 ## 2. Projetos e fotos
 
@@ -56,7 +46,7 @@ Os pares de imagens ficam nos botões `#dnTabs` do `index.html` (`data-a` = imag
 ## 4. Textos e cores
 
 - Textos: direto no `index.html`.
-- Cores e fontes: variáveis no topo de `assets/css/style.css` (`--gold`, `--ink`, `--serif`, `--sans`).
+- Cores e fontes: variáveis no topo de `assets/css/style.css`. Paleta terra: areia, terracota, ocre e dourado. Cada seção usa um contexto de cor (`.lt` claro, `.dk` marrom escuro, `.tc` terracota) que redefine as variáveis.
 - Dados do Google (SEO): bloco `application/ld+json` no `<head>`.
 
 ## O que o site faz
