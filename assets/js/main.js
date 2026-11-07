@@ -70,7 +70,7 @@
         if (x.isIntersecting) links.forEach(function (a) { a.classList.toggle('act', a.getAttribute('href') === '#' + x.target.id); });
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
-    ['projetos', 'sobre', 'servicos', 'processo', 'contato'].forEach(function (id) { var el = document.getElementById(id); if (el) spy.observe(el); });
+    ['projetos', 'sobre', 'escritorio', 'servicos', 'processo', 'contato'].forEach(function (id) { var el = document.getElementById(id); if (el) spy.observe(el); });
 
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('shown'); io.unobserve(x.target); } });
@@ -92,16 +92,50 @@
   document.addEventListener('visibilitychange', function () { document.hidden ? clearInterval(timer) : play(); });
   go(0); play();
 
-  /* ---------- projetos: filtro ---------- */
+  /* ---------- projetos: filtro + "Ver mais" ---------- */
   var grid = $('#grid'), cards = $$('.card', grid), chips = $$('#filters .chip');
+  var more = $('#more'), moreBtn = $('#moreBtn'), moreLabel = $('#moreLabel'), moreNote = $('#moreNote'), moreBar = $('#moreBar');
+  var mqD = window.matchMedia('(min-width:1000px)'), mqT = window.matchMedia('(min-width:700px)');
+  var filter = 'todos', limit = 0;
+  /* Quantos projetos aparecem por vez: 4 no celular, 6 no tablet, 5 no computador (fecha as linhas da grade).
+     Para mostrar mais ou menos de início, altere os números abaixo. */
+  function pageSize() { return mqD.matches ? 5 : (mqT.matches ? 6 : 4); }
+  function renderGrid(animate) {
+    var list = cards.filter(function (c) { return filter === 'todos' || c.getAttribute('data-cat') === filter; });
+    var n = 0;
+    cards.forEach(function (c) {
+      var i = list.indexOf(c), show = i > -1 && i < limit, was = !c.classList.contains('hide');
+      c.classList.toggle('hide', !show);
+      if (show && !was && animate && !reduce) {
+        c.style.animationDelay = (n++ * 80) + 'ms'; c.classList.add('pop');
+        c.addEventListener('animationend', function f() { c.classList.remove('pop'); c.style.animationDelay = ''; c.removeEventListener('animationend', f); });
+      }
+    });
+    grid.classList.toggle('flat', filter !== 'todos');
+    var shown = Math.min(limit, list.length);
+    more.hidden = list.length <= pageSize();
+    moreBar.style.setProperty('--p', list.length ? shown / list.length : 0);
+    moreNote.textContent = 'Mostrando ' + shown + ' de ' + list.length + (list.length === 1 ? ' projeto' : ' projetos');
+    moreLabel.textContent = shown >= list.length ? 'Mostrar menos' : 'Ver mais projetos';
+    moreBtn.setAttribute('data-all', shown >= list.length ? '1' : '0');
+    $('use', moreBtn).setAttribute('href', shown >= list.length ? '#i-minus' : '#i-plus');
+  }
   chips.forEach(function (c) {
     c.addEventListener('click', function () {
-      var f = c.getAttribute('data-f');
+      filter = c.getAttribute('data-f'); limit = pageSize();
       chips.forEach(function (x) { x.setAttribute('aria-pressed', x === c); });
-      cards.forEach(function (card) { card.classList.toggle('hide', f !== 'todos' && card.getAttribute('data-cat') !== f); });
-      grid.classList.toggle('flat', f !== 'todos');
+      renderGrid(false);
     });
   });
+  moreBtn.addEventListener('click', function () {
+    if (moreBtn.getAttribute('data-all') === '1') {
+      limit = pageSize(); renderGrid(false);
+      var t = $('#projetos'); if (t) t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    } else { limit += pageSize(); renderGrid(true); }
+  });
+  var lastSize = pageSize();
+  addEventListener('resize', function () { var s = pageSize(); if (s !== lastSize) { lastSize = s; limit = s; renderGrid(false); } });
+  limit = lastSize; renderGrid(false);
 
   /* ---------- lightbox ---------- */
   var lb = $('#lb'), track = $('#lbTrack'), thumbs = $('#lbThumbs'), lbIdx = 0, lbItems = [], opener = null, lbRaf;
@@ -118,7 +152,7 @@
     track.scrollTo({ left: i * slideW(), behavior: smooth && !reduce ? 'smooth' : 'auto' });
     setIdx(i);
   }
-  function openLB(card, btn) {
+  function openLB(card, btn, start) {
     var data = JSON.parse($('script.gal', card).textContent);
     lbItems = data.imgs; opener = btn;
     $('#lbTitle').textContent = data.title;
@@ -132,7 +166,7 @@
     $$('button', thumbs).forEach(function (b, i) { b.addEventListener('click', function () { scrollTo(i, true); }); });
     thumbs.style.display = lbItems.length > 1 ? '' : 'none';
     lb.hidden = false; document.body.classList.add('lock');
-    track.scrollLeft = 0; setIdx(0);
+    track.scrollLeft = 0; setIdx(0); if (start) scrollTo(start, false);
     $('#lbX').focus();
   }
   function closeLB() {
@@ -140,6 +174,7 @@
     if (opener) opener.focus();
   }
   $$('.card-btn', grid).forEach(function (b) { b.addEventListener('click', function () { openLB(b.closest('.card'), b); }); });
+  $$('.off-btn').forEach(function (b) { b.addEventListener('click', function () { openLB(b.closest('.off-gal'), b, parseInt(b.getAttribute('data-start'), 10) || 0); }); });
   $('#lbX').addEventListener('click', closeLB);
   $('#lbPrev').addEventListener('click', function () { scrollTo(lbIdx - 1, true); });
   $('#lbNext').addEventListener('click', function () { scrollTo(lbIdx + 1, true); });
