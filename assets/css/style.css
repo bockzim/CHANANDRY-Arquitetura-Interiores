@@ -209,7 +209,7 @@ em{font-style:italic}
 .about{display:grid;gap:44px;align-items:center}
 .portrait{position:relative;max-width:480px;width:100%;padding:0 16px 18px 0}
 .portrait::before{content:"";position:absolute;inset:18px 0 0 16px;border:1px solid var(--ocre);z-index:0}
-.portrait img{position:relative;z-index:1;width:100%;aspect-ratio:3/4;object-fit:cover;object-position:50% 30%}
+.portrait img{position:relative;z-index:1;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;object-position:50% 30%}
 .about p{color:var(--text-2);margin-top:18px;max-width:56ch}
 .about p.q{font:italic 400 clamp(26px,6.4vw,36px)/1.15 var(--serif);color:var(--gold-2);margin-top:26px}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:34px;border-top:1px solid var(--line)}
