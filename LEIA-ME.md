@@ -85,3 +85,10 @@ Os pares de imagens ficam nos botões `#dnTabs` do `index.html` (`data-a` = imag
 - O Instagram não aceita mensagem pré-preenchida por link; por isso o site copia o texto para colar.
 
 
+
+## Logo
+
+Arquivos em `assets/brand/` (SVG vetorial + PNG):
+- `logo-horizontal-*` (cabeçalho), `logo-vertical-*` (rodapé), `logo-marca-*` (só o "C"), `favicon.svg`, `favicon-32/192/512.png`, `apple-touch-icon.png`.
+- `*-dourado`: para fundos escuros. `*-bronze`: para fundos claros (o cabeçalho troca sozinho ao rolar a página).
+- Atenção: a cliente não tinha a logo em vetor. Os SVGs foram redesenhados a partir do JPG (marca em polígonos limpos, letras traçadas). Ficou muito fiel, mas se ela conseguir o arquivo original (AI/PDF/SVG) com o designer, vale trocar.
