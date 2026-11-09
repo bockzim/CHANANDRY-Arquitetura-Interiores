@@ -339,6 +339,7 @@ footer{border-top:1px solid var(--line);padding-block:44px calc(44px + 74px);bac
   .card{aspect-ratio:1/1}
   .two{grid-template-columns:1fr 1fr}
   .cities{grid-template-columns:1fr 1fr}
+  .city-br{grid-column:1/-1}
   .svc{grid-template-columns:1fr 1fr;column-gap:56px}
   .dn-tabs .chip{flex:1 1 0}
   .lb-nav{display:grid}
