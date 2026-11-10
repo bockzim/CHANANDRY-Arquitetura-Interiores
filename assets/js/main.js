@@ -176,6 +176,17 @@
   $$('.card-btn', grid).forEach(function (b) { b.addEventListener('click', function () { openLB(b.closest('.card'), b); }); });
   $$('.off-btn').forEach(function (b) { b.addEventListener('click', function () { openLB(b.closest('.off-gal'), b, parseInt(b.getAttribute('data-start'), 10) || 0); }); });
   $$('.obra-btn').forEach(function (b) { b.addEventListener('click', function () { openLB(b.closest('.obra-gal'), b, parseInt(b.getAttribute('data-start'), 10) || 0); }); });
+  var obraGal = $('#obraGal'), obraBtn = $('#obraBtn');
+  if (obraGal && obraBtn) {
+    obraBtn.addEventListener('click', function () {
+      var open = obraGal.classList.toggle('open');
+      $('#obraLabel').textContent = open ? 'Mostrar menos' : 'Ver mais fotos';
+      $('#obraNote').textContent = open ? 'Mostrando todas as 8 fotos' : 'Mostrando 3 de 8 fotos';
+      obraBtn.setAttribute('aria-expanded', open);
+      $('use', obraBtn).setAttribute('href', open ? '#i-minus' : '#i-plus');
+      if (!open) { var s = $('#obras'); if (s) s.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); }
+    });
+  }
   $('#lbX').addEventListener('click', closeLB);
   $('#lbPrev').addEventListener('click', function () { scrollTo(lbIdx - 1, true); });
   $('#lbNext').addEventListener('click', function () { scrollTo(lbIdx + 1, true); });

@@ -60,7 +60,7 @@ Mapa das fotos para os projetos (arquivos em `assets/img/`):
 Reúne as fotos antigas do escritório (`consultoria-1..4.webp`), agora como projetos do portfólio.
 
 ### Seção "Obras em execução"
-Fica logo depois do portfólio e do "Do dia à noite" (`id="obras"`), separada dos projetos. Cada foto é uma `<figure class="obra-fig">` dentro de `#obraGal`; a classe `wide` ocupa a largura toda no celular (2 colunas no computador). A lista da galeria em tela cheia é o JSON `<script class="gal">` no mesmo bloco, na mesma ordem das fotos. Fotos: `assets/img/obra-1..8.webp`. Quando uma obra ficar pronta, mova a foto para um card do portfólio.
+Fica logo depois do portfólio e do "Do dia à noite" (`id="obras"`), separada dos projetos. Cada foto é uma `<figure class="obra-fig">` dentro de `#obraGal`; a classe `wide` ocupa a largura toda no celular (2 colunas no computador). Só as 3 primeiras aparecem de início; as demais têm a classe `ob-extra` e entram no botão "Ver mais fotos". A lista da galeria em tela cheia é o JSON `<script class="gal">` no mesmo bloco, na mesma ordem das fotos. Fotos: `assets/img/obra-1..8.webp`. Quando uma obra ficar pronta, mova a foto para um card do portfólio.
 
 ### Seção "Escritório"
 Fica entre "Sobre" e "Serviços" (`id="escritorio"`). No celular as fotos rolam para o lado; no computador aparecem lado a lado (a primeira, em paisagem, é maior). Cada foto abre a galeria em tela cheia. Para trocar fotos ou legendas, edite as `<figure class="off-fig">` e o JSON `<script class="gal">` dentro de `#offGal`.
