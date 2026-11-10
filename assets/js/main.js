@@ -70,7 +70,7 @@
         if (x.isIntersecting) links.forEach(function (a) { a.classList.toggle('act', a.getAttribute('href') === '#' + x.target.id); });
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
-    ['projetos', 'sobre', 'escritorio', 'servicos', 'processo', 'contato'].forEach(function (id) { var el = document.getElementById(id); if (el) spy.observe(el); });
+    ['projetos', 'obras', 'sobre', 'escritorio', 'servicos', 'processo', 'contato'].forEach(function (id) { var el = document.getElementById(id); if (el) spy.observe(el); });
 
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('shown'); io.unobserve(x.target); } });
@@ -175,6 +175,7 @@
   }
   $$('.card-btn', grid).forEach(function (b) { b.addEventListener('click', function () { openLB(b.closest('.card'), b); }); });
   $$('.off-btn').forEach(function (b) { b.addEventListener('click', function () { openLB(b.closest('.off-gal'), b, parseInt(b.getAttribute('data-start'), 10) || 0); }); });
+  $$('.obra-btn').forEach(function (b) { b.addEventListener('click', function () { openLB(b.closest('.obra-gal'), b, parseInt(b.getAttribute('data-start'), 10) || 0); }); });
   $('#lbX').addEventListener('click', closeLB);
   $('#lbPrev').addEventListener('click', function () { scrollTo(lbIdx - 1, true); });
   $('#lbNext').addEventListener('click', function () { scrollTo(lbIdx + 1, true); });
@@ -247,11 +248,16 @@
   }
 
   /* ---------- formulário ---------- */
-  var F = { n: $('#f-nome'), c: $('#f-cid'), t: $('#f-tipo'), m: $('#f-msg') }, send = $('#fSend');
+  var F = { n: $('#f-nome'), c: $('#f-cid'), t: $('#f-tipo'), m: $('#f-msg'), o: $('#f-outra'), ow: $('#outraWrap') }, send = $('#fSend');
   var fase = function () { return ($('input[name="fase"]:checked') || {}).value || ''; };
+  var outra = function () { return F.c.value === 'outra'; };
+  function cidade() { return outra() ? (F.o.value.trim() || 'outra cidade') : F.c.value; }
+  function toggleOutra() { F.ow.hidden = !outra(); if (outra() && document.activeElement === F.c) F.o.focus(); }
+  F.c.addEventListener('change', toggleOutra);
+  F.o.addEventListener('input', function () { F.o.classList.remove('bad'); $('#err').textContent = ''; });
   function msg() {
     var m = 'Olá, Érica! Meu nome é ' + (F.n.value.trim() || '...') + '.\n' +
-      'Cidade: ' + F.c.value + '\nProjeto: ' + F.t.value + '\nFase: ' + fase();
+      'Cidade: ' + cidade() + '\nProjeto: ' + F.t.value + '\nFase: ' + fase();
     if (F.m.value.trim()) m += '\nSobre o projeto: ' + F.m.value.trim();
     return m;
   }
@@ -268,6 +274,9 @@
   send.addEventListener('click', function (e) {
     if (!F.n.value.trim()) {
       e.preventDefault(); F.n.classList.add('bad'); $('#err').textContent = 'Digite seu nome para continuar.'; F.n.focus(); return;
+    }
+    if (outra() && !F.o.value.trim()) {
+      e.preventDefault(); F.o.classList.add('bad'); $('#err').textContent = 'Conte qual é a sua cidade.'; F.o.focus(); return;
     }
     refresh();
     if (!CONFIG.whatsapp) {

@@ -353,6 +353,9 @@ footer{border-top:1px solid var(--line);padding-block:44px calc(44px + 74px);bac
   .nav a::after{content:"";position:absolute;left:0;right:0;bottom:4px;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:0 50%;transition:transform .4s var(--ease)}
   .nav a:hover,.nav a.act{color:var(--gold-2)}
   .nav a:hover::after,.nav a.act::after{transform:none}
+  .hdr.stuck .nav a{color:#5a4535}
+  .hdr.stuck .nav a:hover,.hdr.stuck .nav a.act{color:var(--gold)}
+  body.lock .hdr.stuck .nav a{color:#d2cab8}
   .hdr .btn span{display:inline}
   .hdr .wrap{height:80px}
   .hero{margin-top:-80px;padding-top:80px}
@@ -400,6 +403,24 @@ footer{border-top:1px solid var(--line);padding-block:44px calc(44px + 74px);bac
 @keyframes cardin{from{opacity:0}}
 
 /* ===== Escritório ===== */
+/* obras em execução */
+.obra-gal{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:34px}
+.obra-fig{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--card)}
+.obra-fig.wide{grid-column:1/-1;aspect-ratio:16/10}
+.obra-btn{position:absolute;inset:0;width:100%;height:100%;display:block}
+.obra-fig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.obra-fig::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 58%,rgba(36,22,16,.86) 100%);pointer-events:none}
+.obra-fig figcaption{position:absolute;left:12px;right:12px;bottom:11px;z-index:2;font:italic 400 clamp(18px,4.8vw,23px)/1.1 var(--serif);color:#f4e9d4;pointer-events:none}
+.obra-fig:hover img{transform:scale(1.05)}
+.obra-cta{grid-column:1/-1;display:grid;gap:18px;justify-items:start;align-content:center;padding:26px 22px;border:1px solid var(--line-2)}
+.obra-cta p{font:500 clamp(24px,6.4vw,32px)/1.12 var(--serif);color:var(--cream);max-width:20ch}
+@media (min-width:700px){.obra-gal{gap:16px}}
+@media (min-width:1000px){
+  .obra-gal{grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
+  .obra-fig.wide{grid-column:span 2;aspect-ratio:auto}
+  .obra-cta{grid-column:span 2;padding:34px}
+}
+
 .off{background:var(--ink);border-block:1px solid var(--line);overflow:hidden}
 .off-head{display:grid;gap:8px}
 .off-head .lead{color:var(--text-2)}
@@ -412,6 +433,7 @@ footer{border-top:1px solid var(--line);padding-block:44px calc(44px + 74px);bac
 .off-fig{position:relative;flex:0 0 74%;max-width:330px;aspect-ratio:3/4.4;overflow:hidden;background:var(--card);scroll-snap-align:start}
 .off-btn{position:absolute;inset:0;width:100%;height:100%;display:block}
 .off-fig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.off-land img{object-position:62% 50%}
 .off-fig::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(36,22,16,.85) 100%);pointer-events:none}
 .off-fig figcaption{position:absolute;left:16px;right:16px;bottom:14px;z-index:2;font:italic 400 24px/1.1 var(--serif);color:#f4e9d4;pointer-events:none}
 .off-fig:hover img{transform:scale(1.05)}
@@ -419,12 +441,13 @@ footer{border-top:1px solid var(--line);padding-block:44px calc(44px + 74px);bac
 @media (min-width:700px){
   .off-gal{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;overflow:visible;margin:40px 0 0;padding:0}
   .off-fig{flex:none;max-width:none;aspect-ratio:3/4}
+  .off-land{grid-column:1/-1;aspect-ratio:16/9}
   .off-hint{display:none}
 }
 @media (min-width:1000px){
   .off-head{grid-template-columns:1fr 1fr;gap:70px;align-items:end}
   .off-info{grid-template-columns:auto auto;align-items:center;justify-content:start;gap:34px}
-  .off-gal{grid-template-columns:repeat(4,1fr);gap:18px;align-items:start;margin-top:64px;padding-bottom:44px}
-  .off-fig{aspect-ratio:9/14}
-  .off-fig:nth-child(even){margin-top:44px}
+  .off-gal{grid-template-columns:1.7fr 1fr 1fr;gap:18px;align-items:start;margin-top:64px;padding-bottom:44px}
+  .off-fig,.off-land{grid-column:auto;aspect-ratio:auto;height:clamp(460px,40vw,560px)}
+  .off-fig:nth-child(2){margin-top:44px}
 }
